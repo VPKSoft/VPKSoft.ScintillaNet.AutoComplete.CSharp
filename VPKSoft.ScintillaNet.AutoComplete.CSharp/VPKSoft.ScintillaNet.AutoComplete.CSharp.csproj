@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net47</TargetFrameworks>
+    <AssemblyTitle>VPKSoft.ScintillaNETAutoComplete</AssemblyTitle>
+    <Product>VPKSoft</Product>
+    <Copyright>Copyright © VPKSoft 2020</Copyright>
+    <LangVersion>8</LangVersion>
+    <DocumentationFile>bin\$(Configuration)\VPKSoft.ScintillaNETAutoComplete.xml</DocumentationFile>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Company>VPKSoft</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>class_icon.png</PackageIcon>
+    <Description>Auto-complete class library for the ScintillaNET.</Description>
+    <PackageTags>auto-complete ScintillaNET wrapper code completion intellisense</PackageTags>
+    <RootNamespace>VPKSoft.ScintillaNet.AutoComplete.CSharp</RootNamespace>
+    <AssemblyName>VPKSoft.ScintillaNet.AutoComplete.CSharp</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net47|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="GUI\FormCustomCallTip" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
+    <PackageReference Include="unofficial.ScintillaNET" Version="3.7.0" />
+    <PackageReference Include="VPKSoft.ScintillaLexers.SUO" Version="1.1.3" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="GUI\FormCustomCallTipBase.cs" />
+    <Compile Update="GUI\FormMain.Designer.cs">
+      <DependentUpon>FormCustomCallTip</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\class_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="Resources\Keyword_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Types.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="GUI\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

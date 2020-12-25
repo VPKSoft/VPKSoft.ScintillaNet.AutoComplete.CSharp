@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="sctMain.Text" xml:space="preserve">
+    <value>#region License
+/*
+MIT License
+
+Copyright(c) 2019 Petteri Kautonen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+#endregion
+
+using System.Globalization;
+using ScintillaNET;
+
+namespace VPKSoft.ScintillaTabbedTextControl
+{
+    /// &lt;summary&gt;
+    /// A class to help to calculate the &lt;see cref="Scintilla"/&gt; zoom percentage from and to points.
+    /// &lt;/summary&gt;
+    public class ScintillaZoomPercentage
+    {
+        /// &lt;summary&gt;
+        /// Gets the zoom percentage value from given &lt;see cref="Scintilla"/&gt; instance.
+        /// &lt;/summary&gt;
+        /// &lt;param name="scintilla"&gt;The &lt;see cref="Scintilla"/&gt; class instance to be used to get the percentage from the zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int ZoomPercentageFromPoints(Scintilla scintilla)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            return ZoomPercentageFromPoints(scintilla.Zoom);
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the zoom percentage value from given integer value.
+        /// &lt;/summary&gt;
+        /// &lt;param name="zoomPoints"&gt;The value of zoom to be used to get the percentage from the zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int ZoomPercentageFromPoints(int zoomPoints)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            // a negative value means below hundred percent..
+            if (zoomPoints &lt; 0)
+            {
+                double zoom = 10 + zoomPoints;
+                zoom *= 10;
+                return (int) zoom == 0 ? 1: (int)zoom;
+            }
+
+            // a positive value means above hundred percent..
+            if (zoomPoints &gt; 0)
+            {
+                double zoom = (double)zoomPoints / 20;
+                zoom *= 100;
+                zoom += 100;
+                return (int) zoom == 0 ? 1: (int)zoom;
+            }
+
+            // 0 means a hundred percent zoom..
+            return 100;
+        }
+
+
+        /// &lt;summary&gt;
+        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
+        /// &lt;/summary&gt;
+        /// &lt;param name="percentage"&gt;The percentage of the requested zoom.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int PointsFromZoomPercentage(int percentage)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            // a negative percentage is not allowed..
+            if (percentage &lt; 0)
+            {
+                return 0;
+            }
+
+            // a percentage from 0 to 5 percent means -10 points..
+            if (percentage &lt;= 5)
+            {
+                return -10;
+            }
+
+            // form 6 to 99 the return value will be a negative value of points..
+            if (percentage &gt; 5 &amp;&amp; percentage &lt; 100)
+            {
+                double zoom = (double)percentage / 10;
+                zoom = zoom - 10;
+                return (int) zoom;
+            }
+
+            // a percentage larger than 100 means point value above 0 points..
+            if (percentage &gt; 100)
+            {
+                double zoom = (double)percentage / 10;
+                zoom = zoom - 10;
+                zoom *= 2;
+                return (int) zoom;
+            }
+
+            // 0 means 100 percent..
+            return 0;
+        }
+
+        /// &lt;summary&gt;
+        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
+        /// &lt;/summary&gt;
+        /// &lt;param name="percentageString"&gt;A string to parse into an integer percentage value of the requested zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int PointsFromZoomPercentage(string percentageString)
+        {
+            if (double.TryParse(percentageString.Trim().Replace("%", string.Empty).Replace(",", "."), 
+                NumberStyles.Any,
+                CultureInfo.InvariantCulture, out var percentage))
+            {
+                return PointsFromZoomPercentage((int) percentage);
+            }
+
+            return 100;
+        }
+    }
+
+}</value>
+  </data>
+  <data name="sctTest.Text" xml:space="preserve">
+    <value>#region License
+/*
+MIT License
+
+Copyright(c) 2019 Petteri Kautonen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+#endregion
+
+using System.Globalization;
+using ScintillaNET;
+
+namespace VPKSoft.ScintillaTabbedTextControl
+{
+    /// &lt;summary&gt;
+    /// A class to help to calculate the &lt;see cref="Scintilla"/&gt; zoom percentage from and to points.
+    /// &lt;/summary&gt;
+    public class ScintillaZoomPercentage
+    {
+        /// &lt;summary&gt;
+        /// Gets the zoom percentage value from given &lt;see cref="Scintilla"/&gt; instance.
+        /// &lt;/summary&gt;
+        /// &lt;param name="scintilla"&gt;The &lt;see cref="Scintilla"/&gt; class instance to be used to get the percentage from the zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int ZoomPercentageFromPoints(Scintilla scintilla)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            return ZoomPercentageFromPoints(scintilla.Zoom);
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the zoom percentage value from given integer value.
+        /// &lt;/summary&gt;
+        /// &lt;param name="zoomPoints"&gt;The value of zoom to be used to get the percentage from the zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int ZoomPercentageFromPoints(int zoomPoints)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            // a negative value means below hundred percent..
+            if (zoomPoints &lt; 0)
+            {
+                double zoom = 10 + zoomPoints;
+                zoom *= 10;
+                return (int) zoom == 0 ? 1: (int)zoom;
+            }
+
+            // a positive value means above hundred percent..
+            if (zoomPoints &gt; 0)
+            {
+                double zoom = (double)zoomPoints / 20;
+                zoom *= 100;
+                zoom += 100;
+                return (int) zoom == 0 ? 1: (int)zoom;
+            }
+
+            // 0 means a hundred percent zoom..
+            return 100;
+        }
+
+
+        /// &lt;summary&gt;
+        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
+        /// &lt;/summary&gt;
+        /// &lt;param name="percentage"&gt;The percentage of the requested zoom.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int PointsFromZoomPercentage(int percentage)
+        {
+            // the zoom of the Scintilla is between -10 and +20..
+
+            // a negative percentage is not allowed..
+            if (percentage &lt; 0)
+            {
+                return 0;
+            }
+
+            // a percentage from 0 to 5 percent means -10 points..
+            if (percentage &lt;= 5)
+            {
+                return -10;
+            }
+
+            // form 6 to 99 the return value will be a negative value of points..
+            if (percentage &gt; 5 &amp;&amp; percentage &lt; 100)
+            {
+                double zoom = (double)percentage / 10;
+                zoom = zoom - 10;
+                return (int) zoom;
+            }
+
+            // a percentage larger than 100 means point value above 0 points..
+            if (percentage &gt; 100)
+            {
+                double zoom = (double)percentage / 10;
+                zoom = zoom - 10;
+                zoom *= 2;
+                return (int) zoom;
+            }
+
+            // 0 means 100 percent..
+            return 0;
+        }
+
+        /// &lt;summary&gt;
+        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
+        /// &lt;/summary&gt;
+        /// &lt;param name="percentageString"&gt;A string to parse into an integer percentage value of the requested zoom points.&lt;/param&gt;
+        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
+        public static int PointsFromZoomPercentage(string percentageString)
+        {
+            if (double.TryParse(percentageString.Trim().Replace("%", string.Empty).Replace(",", "."), 
+                NumberStyles.Any,
+                CultureInfo.InvariantCulture, out var percentage))
+            {
+                return PointsFromZoomPercentage((int) percentage);
+            }
+
+            return 100;
+        }
+    }
+
+}</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAIDYGgB9170AftbMAH7WzAB+1YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHrTFwB+1tUAftb/AH7W/wB+1v8Aftb/AH/XiwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHrTFwB+1tUAftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Af9eLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHrTFwB+
+        1tUAftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB/14sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAIDYGgB+1toAftb/AH7W/wB+1v8Aftb/AH3WuQB+1u4Aftb/AH7W/wB+1v8Aftb/AH/VhwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1tUAftb/AH7W/wB+1v8Aftb/AH3WrQBmzAUAgNYyAH7W7QB+
+        1v8Aftb/AH7W/wB+1v8Af9WHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAftb1AH7W/wB+1v8Aftb/AH3WrwBm
+        zAUAAAAAAAAAAACA1jIAftbtAH7W/wB+1v8Aftb/AH7W/wB/1YcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAftZRAH3XZgB912YAfddmAH3XZgB9
+        12YAfddmAH3XZgB912YAfddmAH3XZgB912YAfddmAH3XZgB912YAfddmAH3XZgB912YAfddmAH7W+QB+
+        1v8Aftb/AH7W/wB+1swAeNIRAAAAAAAAAAAAAAAAAIDWMgB+1u0Aftb/AH7W/wB+1v8Aftb/AH/VhwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAftZ3AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7WzgCA1RIAAAAAAAAAAAAAAAAAgNUwAH7W7AB+
+        1v8Aftb/AH7W/wB+1v8Af9eLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAfdZqAH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8AftbMAHjSEQAA
+        AAAAAAAAAAAAAACA1jIAftbtAH7W/wB+1v8Aftb/AH7W/wB/1YcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAH/WlQB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1swAeNIRAAAAAAAAAAAAAAAAAIDWMgB+1u0Aftb/AH7W/wB+1v8Aftb/AH7WhAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        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
+        AAAAAAAAAIDMCgB9170Aftb/AH7W/wB+1v8Aftb/AH7W5wB80ykAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf9aVAH7W/wB+1v8Aftb/AH3WagAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgMwKAH3XvQB+1v8Aftb/AH7W5wB80ykAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/WlQB+1v8Aftb/AH7W/wB9
+        1moAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/
+        1pUAftb/AH7W/wB+1v8AfdZqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNgaAH3XvQB+1swAftbMAH7VgAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAf9aVAH7W/wB+1v8Aftb/AH3WagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAetMXAH7W1QB+
+        1v8Aftb/AH7W/wB+1v8Af9eLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/WlQB+1v8Aftb/AH7W/wB91moAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAetMXAH7W1QB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB/14sAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/1pUAftb/AH7W/wB+
+        1v8AfdZqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAetMXAH7W1QB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH/XiwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAf9aVAH7W/wB+1v8Aftb/AH3WagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNgaAH7W2gB+1v8Aftb/AH7W/wB+1v8Afda5AH7W7gB+
+        1v8Aftb/AH7W/wB+1v8Af9WHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAH/WlQB+1v8Aftb/AH7W/wB91moAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7W1QB+1v8Aftb/AH7W/wB+
+        1v8AfdatAGbMBQCA1jIAftbtAH7W/wB+1v8Aftb/AH7W/wB/1YcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/1pUAftb/AH7W/wB+1v8AfdZqAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+
+        1vUAftb/AH7W/wB+1v8AfdavAGbMBQAAAAAAAAAAAIDWMgB+1u0Aftb/AH7W/wB+1v8Aftb/AH/VhwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf9aVAH7W/wB+
+        1v8Aftb/AH7WwwB/1ZkAf9WZAH/VmQB/1ZkAf9WZAH/VmQB/1ZkAf9WZAH/VmQB/1ZkAf9WZAH/VmQB/
+        1ZkAf9WZAH/VmQB/1ZkAftb7AH7W/wB+1v8Aftb/AH7WzAB40hEAAAAAAAAAAAAAAAAAgNYyAH7W7QB+
+        1v8Aftb/AH7W/wB+1v8Af9WHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1lcAftbMAH7WzAB+1skAfdU3AAAAAAAA
+        AAAAAAAAAH/WlQB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8AftbMAHjSEQAA
+        AAAAAAAAAAAAAACA1jIAftbtAH7W/wB+1v8Aftb/AH7W/wB/1YcAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1VQAftb7AH7W/wB+
+        1v8Aftb/AH7W8AB91TcAAAAAAAAAAAB/1pUAftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1s4AgNUSAAAAAAAAAAAAAAAAAIDVMAB+1uwAftb/AH7W/wB+1v8Aftb/AH/XiwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+
+        1lcAftb7AH7W/wB+1v8Aftb/AH7W/wB+1v8AftbwAH3VNwAAAAAAf9aVAH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+
+        1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7WzAB40hEAAAAAAAAAAAAAAAAAgNYyAH7W7QB+
+        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
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdNELAH3WvwB+1v8Aftb/AH7W/wB+1v8AftXjAIDVJAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1v8Aftb/AH7W/wB+
+        1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+
+        1v8Aftb/AH7W8AB91TcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAzAoAfde9AH7W/wB+
+        1v8AftbnAHzTKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+1v8Aftb/AH7W8AB91TcAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+
+        1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+
+        1v8Aftb/AH7W8AB91TcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+1v8Aftb/AH7W8AB91TcAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+
+        1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+
+        1v8Aftb/AH7X0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAH3XqwB+1v8Aftb/AH7W/wB+1tMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+1v8Aftb/AH7W8AB91TcAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAIDVVAB+1vsAftb/AH7W/wB+1v8AftbTAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+
+        1v8AftbwAH3VNwAAAAAAAAAAAAAAAAAAAAAAAAAAAIDVVAB+1vsAftb/AH7W/wB+1v8Aftb8AH3VXAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1vAAfdU3AAAAAAAAAAAAAAAAAIDVVAB+1vsAftb/AH7W/wB+
+        1v8Aftb8AH3VXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+1v8Aftb/AH7W8AB91TcAAAAAAIDVVAB+
+        1vsAftb/AH7W/wB+1v8Aftb8AH3VXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+
+        1v8AftbwAH7XfwB+1vsAftb/AH7W/wB+1v8Aftb7AH7WVwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb8AH3VXAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+1YAAftb/AH7W/wB+1v8Aftb/AH7W/wB+1v8Aftb8AH3VXAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH7VgAB+1v8Aftb/AH7W/wB+
+        1v8Aftb8AH3VXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAftWAAH7W/wB+1v8Aftb8AH3VXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA////////////////////////////////////////////////////////////8H/////////g
+        P////////8Af////////gA////////8AB////////wAD////////AwH////4AAADgP////AAAAHAf///
+        4AAAAOA////gAAAAcB///+AAAAA4H///4P//4Bgf///g///wAB///+D///gAH///4P///AA////g///+
+        AH///+D///8A////4P///4H////g/////////+D///B/////4P//4D/////g///AH////+D//4AP////
+        4P//AAf////g//8AA////+D//wMB////4AAAA4D//+DgAAABwH//wGAAAADgP/+AIAAAAHAf/wAAAAAA
+        OB/+AAD//+AYH/wEAP//8AAf+A4A///4AB/wHwD///wAP/A/gP///gB/8H/Af///AP/wP+A///+B//Af
+        8B//////+A/4D//////8B/wH//////4D/gP//////wH/Af//////gP+B///////Af8H//////+A/gf//
+        ////8B8B///////4DgP///////wEB////////gAP////////AB////////+AP////////8B/////////
+        4P////////////////////////////////////////////////8=
+</value>
+  </data>
+</root>
