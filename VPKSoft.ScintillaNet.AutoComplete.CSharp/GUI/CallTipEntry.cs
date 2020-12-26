@@ -47,6 +47,12 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         public string CallTipBodyText { get; set; }
 
         /// <summary>
+        /// Gets or sets the call tip body text without the parameter specifications.
+        /// </summary>
+        /// <value>The call call tip body text without the parameter specifications.</value>
+        public string CallTipBodyTextNoParameters { get; set; }
+
+        /// <summary>
         /// Gets or sets the call tip type text.
         /// </summary>
         /// <value>The call tip type text.</value>

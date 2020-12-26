@@ -9,11 +9,12 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Authors>VPKSoft</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageReleaseNotes>
+    <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</PackageReleaseNotes>
     <PackageIcon>class_icon.png</PackageIcon>
+    <Description>A test application for the VPKSoft.ScintillaNet.AutoComplete.CSharp library.</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

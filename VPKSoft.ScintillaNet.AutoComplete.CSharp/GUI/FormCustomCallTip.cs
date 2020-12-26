@@ -28,9 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ScintillaNET;
-using VPKSoft.ScintillaNet.AutoComplete.CSharp.Enumerations;
 
 namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 {
@@ -56,10 +56,25 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             PaintTypePanelText += PaintTypePanelText_Event;
             PreviousEntry += PreviousEntry_Event;
             NextEntry += NextEntry_Event;
+            FilterChanged += formCustomCallTip_FilterChanged;
+            SelectionMade += formCustomCallTip_SelectionMade;
             DoClose += DoClose_Event;
         }
 
-        #region PublicProperties
+        #region PublicEvents        
+        /// <summary>
+        /// An event that occurs when the user selected an item from the call tip.
+        /// </summary>
+        public event EventHandler<CallTipSelectedItemEventArgs<T>> ItemSelected;
+        #endregion
+
+        #region PublicProperties        
+        /// <summary>
+        /// Gets or sets the item selected by the user.
+        /// </summary>
+        /// <value>The item selected by the user.</value>
+        public CallTipEntry<T> SelectedItem { get; set; }
+
         /// <summary>
         /// Gets or sets the index of the current call tip.
         /// </summary>
@@ -71,7 +86,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 
             set
             {
-                if (value != 0 && (value < 0 || value >= CallTipEntries.Count))
+                if (value != 0 && (value < 0 || value >= CallTipEntriesFiltered.Count))
                 {
                     throw new IndexOutOfRangeException(nameof(CurrentCallTipIndex));
                 }
@@ -90,9 +105,9 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// </summary>
         /// <value>The current call tip.</value>
         public CallTipEntry<T> CurrentCallTip =>
-            (CallTipEntries.Count == 0 || currentCallTipIndex < 0 || currentCallTipIndex >= CallTipEntries.Count)
+            (CallTipEntriesFiltered.Count == 0 || currentCallTipIndex < 0 || currentCallTipIndex >= CallTipEntriesFiltered.Count)
                 ? null
-                : CallTipEntries[currentCallTipIndex];
+                : CallTipEntriesFiltered[currentCallTipIndex];
         #endregion
 
         #region PublicMethods
@@ -103,7 +118,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         public void AddEntry(CallTipEntry<T> entry)
         {
             CallTipEntries.Add(entry);
-            ItemCount = CallTipEntries.Count;
+            ItemCount = CallTipEntriesFiltered.Count;
         }
 
         /// <summary>
@@ -117,6 +132,19 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         }
 
         /// <summary>
+        /// Moves the current call tip to the first call tip in the <see cref="CallTipEntry{T}"/> instance collection.
+        /// </summary>
+        public void First()
+        {
+            if (currentCallTipIndex != 0 && CallTipEntriesFiltered.Count > 0)
+            {
+                SetImage();
+                CurrentCallTipIndex = 0;
+                CurrentItemIndex = 0;
+            }
+        }
+
+        /// <summary>
         /// Sets the next call tip to be shown.
         /// </summary>
         public void Next()
@@ -124,7 +152,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             var current = currentCallTipIndex;
 
             current++;
-            if (current >= CallTipEntries.Count)
+            if (current >= CallTipEntriesFiltered.Count)
             {
                 current = 0;
             }
@@ -147,7 +175,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             current--;
             if (current < 0)
             {
-                current = CallTipEntries.Count > 0 ? CallTipEntries.Count - 1 : 0;
+                current = CallTipEntriesFiltered.Count > 0 ? CallTipEntriesFiltered.Count - 1 : 0;
             }
 
             if (current != currentCallTipIndex)
@@ -181,6 +209,15 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// </summary>
         /// <value>The list of call tip entries.</value>
         private List<CallTipEntry<T>> CallTipEntries { get; } = new List<CallTipEntry<T>>();
+
+        /// <summary>
+        /// Gets the call tip entries filtered by the user input.
+        /// </summary>
+        /// <value>The call tip entries filtered by the user input.</value>
+        private List<CallTipEntry<T>> CallTipEntriesFiltered =>
+            (CallTipEntries?.Where(f =>
+                f.CallTipBodyText.IndexOf(UserTypedString ?? string.Empty, ComparisonFilterCallTips) != (FilterCallTipsMiddle ? -1 : 0) ||
+                string.IsNullOrWhiteSpace(UserTypedString)) ?? new List<CallTipEntry<T>>()).ToList();
         #endregion
 
         #region InternalEvents
@@ -192,6 +229,8 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             PaintTypePanelText -= PaintTypePanelText_Event;
             PreviousEntry -= PreviousEntry_Event;
             NextEntry -= NextEntry_Event;
+            FilterChanged -= formCustomCallTip_FilterChanged;
+            SelectionMade -= formCustomCallTip_SelectionMade;
             DoClose -= DoClose_Event;            
             Disposed -= formCustomCallTip_Disposed;
         }
@@ -203,6 +242,8 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 
         private void formCustomCallTip_Shown(object sender, EventArgs e)
         {
+            SelectedItem = default;
+            currentCallTipIndex = 0;
             Height = 16;
             SetImage();
         }
@@ -290,6 +331,25 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         private void PreviousEntry_Event(object sender, EventArgs e)
         {
             Previous();
+        }
+
+        private void formCustomCallTip_FilterChanged(object sender, EventArgs e)
+        {
+            ItemCount = CallTipEntriesFiltered.Count;
+
+            if (ItemCount == 0)
+            {
+                Hide();
+                return;
+            }
+
+            First();
+        }
+
+        private void formCustomCallTip_SelectionMade(object sender, EventArgs e)
+        {
+            SelectedItem = CallTipEntriesFiltered[CurrentCallTipIndex];
+            ItemSelected?.Invoke(this, new CallTipSelectedItemEventArgs<T> {SelectedItem = SelectedItem});
         }
         #endregion
     }

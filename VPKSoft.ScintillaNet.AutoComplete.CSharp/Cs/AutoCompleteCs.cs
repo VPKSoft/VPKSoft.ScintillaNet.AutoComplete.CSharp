@@ -30,7 +30,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -39,7 +38,6 @@ using Microsoft.CodeAnalysis.Completion;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Host.Mef;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Recommendations;
 using Microsoft.CodeAnalysis.Text;
 using ScintillaNET;
@@ -100,33 +98,15 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
 
             CacheLibraries(true);
 
+            base.Scintilla.AutoCOrder = Order.PerformSort;
+
             base.PostponeTimer = new PostponeTimer(base.PostponeTimerInterval, base.PostPoneTimerResolution)
                 {Enabled = true};
             base.PostponeTimer.Timer += Timer;
 
             base.Scintilla.TextChanged += scintilla_TextChanged;
-        }
 
-        private void scintilla_TextChanged(object sender, EventArgs e)
-        {
-            PostponeTimer.Postpone(500);
-        }
-
-        readonly object dummyLock = new object();
-
-        private void Timer(object sender, PostponeTimerEventArgs e)
-        {
-            lock (dummyLock)
-            {
-                var sourceText = "";
-                if (Scintilla.IsDisposed)
-                {
-                    return;
-                }
-
-                Scintilla.Invoke(new MethodInvoker(() => sourceText = Scintilla.Text));
-                CreateAddhocProject(sourceText);
-            }
+            CustomCallTip.ItemSelected += customCallTip_ItemSelected;
         }
 
         /// <summary>
@@ -136,7 +116,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         public AutoCompleteCs(Scintilla scintilla): this(scintilla, true) { }
 
         #region PublicProperties
-
         /// <summary>
         /// Gets or sets the name of the project for the Roslyn.
         /// </summary>
@@ -221,7 +200,44 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         public List<LibraryEntryCs> InstanceLibraryMemberList { get; } = new List<LibraryEntryCs>();
         #endregion
 
-        #region InternalEvents        
+        #region InternalEvents
+        private void scintilla_TextChanged(object sender, EventArgs e)
+        {
+            PostponeTimer.Postpone(500);
+        }
+
+        readonly object dummyLock = new object();
+
+        private void Timer(object sender, PostponeTimerEventArgs e)
+        {
+            lock (dummyLock)
+            {
+                var sourceText = "";
+                if (Scintilla.IsDisposed)
+                {
+                    return;
+                }
+
+                Scintilla.Invoke(new MethodInvoker(() => sourceText = Scintilla.Text));
+                CreateAddhocProject(sourceText);
+            }
+        }
+
+        private void customCallTip_ItemSelected(object sender, CallTipSelectedItemEventArgs<HighLightStyleCs> e)
+        {
+            var insertText = e.SelectedItem.CallTipBodyTextNoParameters;
+            if (e.SelectedItem.LanguageConstructType == LanguageConstructType.Method)
+            {
+                insertText += @"(";
+            }
+            Scintilla.InsertText(Scintilla.CurrentPosition, insertText);
+            Scintilla.CurrentPosition += insertText.Length;
+            if (e.SelectedItem.LanguageConstructType == LanguageConstructType.Method)
+            {
+                Scintilla.InsertText(Scintilla.CurrentPosition, @")");
+            }
+        }
+
         /// <summary>
         /// Gets the type string at a specified document position..
         /// </summary>
@@ -229,6 +245,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// <param name="document">The <see cref="Document"/> instance to search the type for using Roslyn.</param>
         /// <param name="loadedAssemblies">The currently loaded assemblies.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Local
         private static async Task<string> GetTypeStringAt(TextSpan span, Document document, Dictionary<string, Assembly> loadedAssemblies)
         {
             var result = await GetTypeAt(span, document, loadedAssemblies);
@@ -249,8 +266,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             if (syntaxTree != null)
             {
                 var root = await syntaxTree.GetRootAsync();
-
-                var children = root.ChildNodes(); // TODO::Span from start to this point!!
                 
                 var nodes = root.DescendantNodes(span);
 
@@ -305,12 +320,9 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                                 StaticLibraryMemberList
                     .FirstOrDefault(f => f.ConstructType != null && f.ConstructType.Name == word);
 
-                Type type = null;
-                //if (construct == null)
-                {
-                    type =
-                        await GetTypeAt(new TextSpan(wordStartPos, currentPos - wordStartPos - 1), Document, LoadedAssemblies);
-                }
+                var type =
+                    await GetTypeAt(new TextSpan(wordStartPos, currentPos - wordStartPos - 1), Document,
+                        LoadedAssemblies);
 
                 var instanceConstruct = StaticLibraryMemberList
                     .FirstOrDefault(f => f.ConstructType == type && type != null);
@@ -326,7 +338,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                         var body = method.ToString(false, out var highLights, out var returnType);
 
                         var callTipEntry = new CallTipEntry<HighLightStyleCs>
-                            {CallTipBodyText = body, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Method, Style = HighLightStyleCs.BodyName};
+                            {CallTipBodyText = body, CallTipBodyTextNoParameters = method.MethodName, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Method, Style = HighLightStyleCs.BodyName};
 
                         foreach (var highLight in highLights)
                         {
@@ -341,7 +353,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                         var body = property.ToString(out var highLights, out var returnType);
 
                         var callTipEntry = new CallTipEntry<HighLightStyleCs>
-                            {CallTipBodyText = body, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Property, Style = HighLightStyleCs.BodyName};
+                            {CallTipBodyText = body, CallTipBodyTextNoParameters = property.Name, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Property, Style = HighLightStyleCs.BodyName};
 
                         foreach (var highLight in highLights)
                         {
@@ -356,7 +368,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                         var body = field.ToString(out var highLights, out var returnType);
 
                         var callTipEntry = new CallTipEntry<HighLightStyleCs>
-                            {CallTipBodyText = body, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Field, Style = HighLightStyleCs.BodyName};
+                            {CallTipBodyText = body, CallTipBodyTextNoParameters = field.Name, CallTipTypeText = returnType, LanguageConstructType = LanguageConstructType.Field, Style = HighLightStyleCs.BodyName};
 
                         foreach (var highLight in highLights)
                         {
@@ -365,20 +377,8 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
 
                         CustomCallTip.AddEntry(callTipEntry);
                     }
-
-
-                    //CustomCallTip.SetImage();
-
-
-
-//                    CallTipStyling.ShowCallTip(returnType, body, highLights, 1, construct.Methods.Count);
                 }
                 CustomCallTip.CallTipShow(Scintilla);
-
-
-//                Scintilla.CallTipShow(construct.Methods.FirstOrDefault().);
-
-                // TODO::Make this work..
             }
             else
             {
@@ -437,35 +437,39 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         private bool isDisposed;
         #endregion
 
-        #region PublicMethods
-
+        #region PublicMethods        
+        /// <summary>
+        /// Updates the local scope members to the auto-complete list.
+        /// </summary>
+        /// <param name="currentPosition">The current position within the <see cref="Scintilla"/> control.</param>
         public async Task AutoCompleteMemberUpdate(int currentPosition)
         {
             var model = await Document.GetSemanticModelAsync();
             var syntaxTree = await Document.GetSyntaxTreeAsync();
             if (syntaxTree != null)
             {
-                var symbols = await Recommender.GetRecommendedSymbolsAtPositionAsync(model, currentPosition, Workspace);
-                symbols = symbols.Where(f => f.Kind == SymbolKind.Local);
+                var symbols = (await Recommender.GetRecommendedSymbolsAtPositionAsync(model, currentPosition, Workspace)).ToList();
+                var variables = symbols.Where(f => f.Kind == SymbolKind.Local || f.Kind == SymbolKind.Parameter);
 
-                var names = symbols.Select(f => f.Name).ToList();
+                var properties = symbols.Where(f => f.Kind == SymbolKind.Property);
+
+                var variableNames = variables.Select(f => f.Name).ToList();
+                var propertyNames = properties.Select(f => f.Name).ToList();
 
                 WordList = ScintillaKeywordBuilder
                     .WithNew()
                     .WithWordList(WordList)
                     .RemoveKeywordsWithType(LanguageConstructType.LocalVariable)
-                    .AddKeyWords(names, LanguageConstructType.LocalVariable).ToString();
+                    .AddKeyWords(variableNames, LanguageConstructType.LocalVariable)
+                    .AddKeyWords(propertyNames, LanguageConstructType.Property).ToString();
             }
         }
-        
         
         /// <summary>
         /// Displays the auto-complete complete suggestion menu for the <see cref="Scintilla"/> control.
         /// </summary>
         public virtual void AutoCompleteSuggest()
         {
-            Scintilla.AutoCOrder = Order.PerformSort;
-            
             // find the word start..
             var currentPos = Scintilla.CurrentPosition;
             var wordStartPos = Scintilla.WordStartPosition(currentPos, true);

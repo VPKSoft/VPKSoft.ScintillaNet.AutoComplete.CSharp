@@ -73,9 +73,31 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// An event that occurs when the user action indicates a wish to close the call tip.
         /// </summary>
         internal event EventHandler DoClose;
+
+        /// <summary>
+        /// An event that occurs when the search filter has changed.
+        /// </summary>
+        internal event EventHandler FilterChanged;
+
+        /// <summary>
+        /// An event which occurs when the user selects an item in the call tip.
+        /// </summary>
+        internal event EventHandler SelectionMade;
         #endregion
 
-        #region PublicProperties
+        #region PublicProperties        
+        /// <summary>
+        /// Gets or sets the comparison filter call tips.
+        /// </summary>
+        /// <value>The comparison filter call tips.</value>
+        public StringComparison ComparisonFilterCallTips { get; set; } = StringComparison.OrdinalIgnoreCase;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to filter the call tips also in the middle of the text.
+        /// </summary>
+        /// <value><c>true</c> if to filter the call tips also in the middle of the text; otherwise, <c>false</c>.</value>
+        public bool FilterCallTipsMiddle { get; set; } = true;
+
         /// <summary>
         /// Gets or sets a value indicating whether the call tip sets it width automatically to
         /// fit the description of the currently displayed language construct.
@@ -155,7 +177,13 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         }
         #endregion
 
-        #region InternalProperties        
+        #region InternalProperties
+        /// <summary>
+        /// Gets or sets the user typed string while the call tip was visible.
+        /// </summary>
+        /// <value>The user typed string while the call tip was visible.</value>
+        internal string UserTypedString { get; set; }
+
         /// <summary>
         /// Gets or sets the width of the panel containing the body text of the language construct.
         /// </summary>
@@ -248,12 +276,19 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// <param name="scintilla">The scintilla on which to display the call tip.</param>
         public void CallTipShow(Scintilla scintilla)
         {
+            UserTypedString = string.Empty;
+
+            if (ItemCount == 0)
+            {
+                return;
+            }
+
             Height = 16;
             var x = scintilla.PointXFromPosition(scintilla.CurrentPosition);
             var y = scintilla.PointYFromPosition(scintilla.CurrentPosition);
             var location = new Point(x, y);
             Location = scintilla.PointToScreen(location);
-            
+
             Show();
         }
         #endregion
@@ -268,7 +303,12 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         #region PrivateMethods
         #endregion
 
-        #region PrivateProperties
+        #region PrivateProperties        
+        /// <summary>
+        /// Gets or sets a value indicating whether to handle a key event as character input.
+        /// </summary>
+        /// <value><c>true</c> if to handle a key event as character input; otherwise, <c>false</c>.</value>
+        private bool HandleKeyAsChar { get; set; }        
         #endregion
 
         #region InternalEvents
@@ -284,28 +324,69 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 
         private void FormCustomCallTipBase_Deactivate(object sender, EventArgs e)
         {
+            UserTypedString = string.Empty;
             Hide();
         }
 
         private void FormCustomCallTipBase_KeyDown(object sender, KeyEventArgs e)
         {
+            HandleKeyAsChar = false;
+            
             var noModifiers = !e.Alt && !e.Control && !e.Shift;
             if (e.KeyCode == Keys.Up && noModifiers)
             {
                 e.SuppressKeyPress = true;
                 PreviousEntry?.Invoke(this, new EventArgs());
+                return;
+            }
+
+            if (e.KeyCode == Keys.Return && noModifiers)
+            {
+                e.SuppressKeyPress = true;
+                Hide();
+                SelectionMade?.Invoke(this, new EventArgs());
+                return;
             }
 
             if (e.KeyCode == Keys.Down && noModifiers)
             {
                 e.SuppressKeyPress = true;
                 NextEntry?.Invoke(this, new EventArgs());
+                return;
             }
 
             if (e.KeyCode == Keys.Escape && noModifiers)
             {
                 e.SuppressKeyPress = true;
                 DoClose?.Invoke(this, new EventArgs());
+                return;
+            }
+
+            if (e.KeyCode == Keys.Back && !string.IsNullOrEmpty(UserTypedString) && noModifiers)
+            {
+                e.SuppressKeyPress = true;
+                UserTypedString = UserTypedString.Substring(0, UserTypedString.Length - 1);
+                FilterChanged?.Invoke(this, new EventArgs());
+                return;
+            }
+
+            if (e.KeyCode == Keys.Back && string.IsNullOrEmpty(UserTypedString) && noModifiers)
+            {
+                e.SuppressKeyPress = true;
+                DoClose?.Invoke(this, new EventArgs());
+                return;
+            }
+
+            HandleKeyAsChar = true;
+        }
+
+        private void FormCustomCallTipBase_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (HandleKeyAsChar)
+            {
+                UserTypedString += e.KeyChar.ToString();
+                FilterChanged?.Invoke(this, new EventArgs());
+                HandleKeyAsChar = false;
             }
         }
         #endregion

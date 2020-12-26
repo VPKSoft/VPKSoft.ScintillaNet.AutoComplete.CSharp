@@ -9,15 +9,17 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Company>VPKSoft</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNETAutoComplete</RepositoryUrl>
+    <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>class_icon.png</PackageIcon>
     <Description>Auto-complete class library for the ScintillaNET.</Description>
-    <PackageTags>auto-complete ScintillaNET wrapper code completion intellisense</PackageTags>
+    <PackageTags>auto-complete ScintillaNET wrapper code completion intellisense csharp</PackageTags>
     <RootNamespace>VPKSoft.ScintillaNet.AutoComplete.CSharp</RootNamespace>
     <AssemblyName>VPKSoft.ScintillaNet.AutoComplete.CSharp</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>

@@ -24,35 +24,22 @@ SOFTWARE.
 */
 #endregion
 
-using System.Drawing;
-using System.Windows.Forms;
-using ScintillaNET;
-using VPKSoft.ScintillaLexers;
-using VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs;
+using System;
 
-namespace AutoCompleteTestApplication
+namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 {
-    public partial class FormMain : Form
+    /// <summary>
+    /// Event arguments for the <see cref="FormCustomCallTip{T}.ItemSelected"/> event.
+    /// Implements the <see cref="System.EventArgs" />
+    /// </summary>
+    /// <typeparam name="T">The enumeration type for type highlight style indexer for this class.</typeparam>
+    /// <seealso cref="System.EventArgs" />
+    public class CallTipSelectedItemEventArgs<T>: EventArgs where T: Enum
     {
-        public FormMain()
-        {
-            InitializeComponent();
-
-            ScintillaLexers.CreateLexer(sctMain, LexerEnumerations.LexerType.Cs);
-            ScintillaLexers.CreateLexer(sctTest, LexerEnumerations.LexerType.Cs);
-
-            AutoCompleteCs = new AutoCompleteCs(sctMain);
-            sctTest.Styles[Style.CallTip].BackColor = Color.FromArgb(66, 66, 66);
-            sctTest.Styles[Style.CallTip].ForeColor = Color.FromArgb(255, 255, 255);
-            sctTest.Styles[Style.CallTip].Bold = true;
-            sctTest.CallTipSetForeHlt(Color.FromArgb(86, 156, 214));
-        }
-
-        private AutoCompleteCs AutoCompleteCs { get; set; }
-
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            AutoCompleteCs.Dispose();
-        }
+        /// <summary>
+        /// Gets or sets the user selected item.
+        /// </summary>
+        /// <value>The user selected item.</value>
+        public CallTipEntry<T> SelectedItem { get; set; }
     }
 }

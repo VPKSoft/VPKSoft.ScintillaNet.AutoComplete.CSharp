@@ -258,6 +258,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             this.Text = "FormCustomCallTip";
             this.Deactivate += new System.EventHandler(this.FormCustomCallTipBase_Deactivate);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormCustomCallTipBase_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FormCustomCallTipBase_KeyPress);
             this.Leave += new System.EventHandler(this.FormCustomCallTipBase_Deactivate);
             this.tlpMain.ResumeLayout(false);
             this.tlpMain.PerformLayout();
