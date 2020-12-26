@@ -24,7 +24,7 @@ SOFTWARE.
 
 Write-Output "Init NuGet push..."
 
-$output_file = "VPKSoft.MessageBoxExtended\CryptEnvVar.exe"
+$output_file = "VPKSoft.ScintillaNet.AutoComplete.CSharp\CryptEnvVar.exe"
 
 $download_url = "https://www.vpksoft.net/toolset/CryptEnvVar.exe"
 
@@ -34,7 +34,7 @@ Remove-Item $output_file
 Write-Output "Download done."
 
 # application parameters..
-$application = "VPKSoft.MessageBoxExtended"
+$application = "VPKSoft.ScintillaNet.AutoComplete.CSharp"
 $environment_cryptor = "CryptEnvVar.exe"
 
 # create the digital signature..
