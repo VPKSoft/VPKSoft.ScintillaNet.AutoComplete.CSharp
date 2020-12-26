@@ -4,7 +4,7 @@ An auto-complete (might seem intelligent 🙄) library for the Scintilla control
 **NOTE: THIS IS A WORK IN PROGRESS --> I.e. NOT FUNCTIONAL YET.**
 
 ### Screenshots
-![image](http://www.vpksoft.net/site/video/auto-complete_cs_sample.gif)
+![image](https://www.vpksoft.net/site/video/auto-complete_cs_sample.gif)
 
 ![image](https://user-images.githubusercontent.com/40712699/103133549-c699f180-46b3-11eb-8238-d60b24ea8f0e.png)
 
