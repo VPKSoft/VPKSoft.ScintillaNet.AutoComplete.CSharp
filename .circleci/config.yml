@@ -1,0 +1,24 @@
+ version: 2.1
+
+ orbs:
+  win: circleci/windows@2.2.0
+
+ workflows:
+   primary:
+     jobs:
+       - build:
+          context: Common
+
+ jobs:
+   build:
+     executor: win/default     
+    
+     steps:
+       - checkout
+       - run: msbuild VPKSoft.ScintillaNet.AutoComplete.CSharp/VPKSoft.ScintillaNet.AutoComplete.CSharp.csproj /t:restore
+       - run: msbuild VPKSoft.ScintillaNet.AutoComplete.CSharp/VPKSoft.ScintillaNet.AutoComplete.CSharp.csproj /p:Configuration=Release
+       - run: 
+          name: Push to NuGet
+          command: |
+            VPKSoft.ScintillaNet.AutoComplete.CSharp/NuGet-Push.ps1
+            
