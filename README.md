@@ -25,6 +25,7 @@ I wrote this to ease up the C# script writing with the Scintilla control for the
 ### Thanks to
 * [JetBrains](https://www.jetbrains.com/?from=VPKSoft.ScintillaNet.AutoComplete.CSharp) for their open source license(s).
 * [![VPKSoft](https://circleci.com/gh/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp.svg?style=shield)](https://app.circleci.com/pipelines/github/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp)
+* [Microsoft Visual Studio Code](https://code.visualstudio.com/docs/editor/intellisense) for the icons used for the language construct types.
 
 
 [![JetBrains](http://www.vpksoft.net/site/External/JetBrains/jetbrains.svg)](https://www.jetbrains.com/?from=VPKSoft.ScintillaNet.AutoComplete.CSharp)
