@@ -7,6 +7,9 @@ An auto-complete (might seem intelligent 🙄) library for the Scintilla control
 
 **NOTE: THIS IS A WORK IN PROGRESS --> I.e. NOT FUNCTIONAL YET.**
 
+### Other methods used
+* [Reflection](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/reflection)
+
 ### Screenshots
 ![image](https://user-images.githubusercontent.com/40712699/103133549-c699f180-46b3-11eb-8238-d60b24ea8f0e.png)
 
