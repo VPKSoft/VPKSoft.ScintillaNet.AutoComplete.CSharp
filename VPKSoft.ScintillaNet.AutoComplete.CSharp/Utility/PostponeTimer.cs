@@ -104,7 +104,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Utility
             }
             catch
             {
-                return;
+                // ignored..
             }
 #pragma warning restore IDE0054 // Reason: Suspicious 'volatile' field usage: compound operation is not atomic. 'Interlocked' class can be used instead.
         }
@@ -158,7 +158,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Utility
         /// <summary>
         /// An event which occurs when the timer interval has been spent.
         /// </summary>
-        public EventHandler<PostponeTimerEventArgs> Timer;
+        internal EventHandler<PostponeTimerEventArgs> Timer { get; set; }
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.

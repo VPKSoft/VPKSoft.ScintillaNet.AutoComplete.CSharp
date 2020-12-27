@@ -118,287 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="sctMain.Text" xml:space="preserve">
-    <value>#region License
-/*
-MIT License
-
-Copyright(c) 2019 Petteri Kautonen
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-#endregion
-
+    <value>using System;
+using System.IO;
 using System.Globalization;
-using ScintillaNET;
 
-namespace VPKSoft.ScintillaTabbedTextControl
+namespace VPKSoft.TestAutoComplete.CSharp
 {
-    /// &lt;summary&gt;
-    /// A class to help to calculate the &lt;see cref="Scintilla"/&gt; zoom percentage from and to points.
-    /// &lt;/summary&gt;
-    public class ScintillaZoomPercentage
+    public class TestAutoComplete
     {
-        /// &lt;summary&gt;
-        /// Gets the zoom percentage value from given &lt;see cref="Scintilla"/&gt; instance.
-        /// &lt;/summary&gt;
-        /// &lt;param name="scintilla"&gt;The &lt;see cref="Scintilla"/&gt; class instance to be used to get the percentage from the zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int ZoomPercentageFromPoints(Scintilla scintilla)
+        public void TestVariables()
         {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            return ZoomPercentageFromPoints(scintilla.Zoom);
-        }
-
-        /// &lt;summary&gt;
-        /// Gets the zoom percentage value from given integer value.
-        /// &lt;/summary&gt;
-        /// &lt;param name="zoomPoints"&gt;The value of zoom to be used to get the percentage from the zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int ZoomPercentageFromPoints(int zoomPoints)
-        {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            // a negative value means below hundred percent..
-            if (zoomPoints &lt; 0)
-            {
-                double zoom = 10 + zoomPoints;
-                zoom *= 10;
-                return (int) zoom == 0 ? 1: (int)zoom;
-            }
-
-            // a positive value means above hundred percent..
-            if (zoomPoints &gt; 0)
-            {
-                double zoom = (double)zoomPoints / 20;
-                zoom *= 100;
-                zoom += 100;
-                return (int) zoom == 0 ? 1: (int)zoom;
-            }
-
-            // 0 means a hundred percent zoom..
-            return 100;
-        }
-
-
-        /// &lt;summary&gt;
-        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
-        /// &lt;/summary&gt;
-        /// &lt;param name="percentage"&gt;The percentage of the requested zoom.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int PointsFromZoomPercentage(int percentage)
-        {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            // a negative percentage is not allowed..
-            if (percentage &lt; 0)
-            {
-                return 0;
-            }
-
-            // a percentage from 0 to 5 percent means -10 points..
-            if (percentage &lt;= 5)
-            {
-                return -10;
-            }
-
-            // form 6 to 99 the return value will be a negative value of points..
-            if (percentage &gt; 5 &amp;&amp; percentage &lt; 100)
-            {
-                double zoom = (double)percentage / 10;
-                zoom = zoom - 10;
-                return (int) zoom;
-            }
-
-            // a percentage larger than 100 means point value above 0 points..
-            if (percentage &gt; 100)
-            {
-                double zoom = (double)percentage / 10;
-                zoom = zoom - 10;
-                zoom *= 2;
-                return (int) zoom;
-            }
-
-            // 0 means 100 percent..
-            return 0;
-        }
-
-        /// &lt;summary&gt;
-        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
-        /// &lt;/summary&gt;
-        /// &lt;param name="percentageString"&gt;A string to parse into an integer percentage value of the requested zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int PointsFromZoomPercentage(string percentageString)
-        {
-            if (double.TryParse(percentageString.Trim().Replace("%", string.Empty).Replace(",", "."), 
-                NumberStyles.Any,
-                CultureInfo.InvariantCulture, out var percentage))
-            {
-                return PointsFromZoomPercentage((int) percentage);
-            }
-
-            return 100;
+            var file = File.OpenText(@"c:\test.txt");
+            int i = 0;
         }
     }
-
 }</value>
   </data>
   <data name="sctTest.Text" xml:space="preserve">
-    <value>#region License
-/*
-MIT License
-
-Copyright(c) 2019 Petteri Kautonen
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-#endregion
-
+    <value>using System;
+using System.IO;
 using System.Globalization;
-using ScintillaNET;
 
-namespace VPKSoft.ScintillaTabbedTextControl
+namespace VPKSoft.TestAutoComplete.CSharp
 {
-    /// &lt;summary&gt;
-    /// A class to help to calculate the &lt;see cref="Scintilla"/&gt; zoom percentage from and to points.
-    /// &lt;/summary&gt;
-    public class ScintillaZoomPercentage
+    public class TestAutoComplete
     {
-        /// &lt;summary&gt;
-        /// Gets the zoom percentage value from given &lt;see cref="Scintilla"/&gt; instance.
-        /// &lt;/summary&gt;
-        /// &lt;param name="scintilla"&gt;The &lt;see cref="Scintilla"/&gt; class instance to be used to get the percentage from the zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int ZoomPercentageFromPoints(Scintilla scintilla)
+        public void TestVariables()
         {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            return ZoomPercentageFromPoints(scintilla.Zoom);
-        }
-
-        /// &lt;summary&gt;
-        /// Gets the zoom percentage value from given integer value.
-        /// &lt;/summary&gt;
-        /// &lt;param name="zoomPoints"&gt;The value of zoom to be used to get the percentage from the zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int ZoomPercentageFromPoints(int zoomPoints)
-        {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            // a negative value means below hundred percent..
-            if (zoomPoints &lt; 0)
-            {
-                double zoom = 10 + zoomPoints;
-                zoom *= 10;
-                return (int) zoom == 0 ? 1: (int)zoom;
-            }
-
-            // a positive value means above hundred percent..
-            if (zoomPoints &gt; 0)
-            {
-                double zoom = (double)zoomPoints / 20;
-                zoom *= 100;
-                zoom += 100;
-                return (int) zoom == 0 ? 1: (int)zoom;
-            }
-
-            // 0 means a hundred percent zoom..
-            return 100;
-        }
-
-
-        /// &lt;summary&gt;
-        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
-        /// &lt;/summary&gt;
-        /// &lt;param name="percentage"&gt;The percentage of the requested zoom.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int PointsFromZoomPercentage(int percentage)
-        {
-            // the zoom of the Scintilla is between -10 and +20..
-
-            // a negative percentage is not allowed..
-            if (percentage &lt; 0)
-            {
-                return 0;
-            }
-
-            // a percentage from 0 to 5 percent means -10 points..
-            if (percentage &lt;= 5)
-            {
-                return -10;
-            }
-
-            // form 6 to 99 the return value will be a negative value of points..
-            if (percentage &gt; 5 &amp;&amp; percentage &lt; 100)
-            {
-                double zoom = (double)percentage / 10;
-                zoom = zoom - 10;
-                return (int) zoom;
-            }
-
-            // a percentage larger than 100 means point value above 0 points..
-            if (percentage &gt; 100)
-            {
-                double zoom = (double)percentage / 10;
-                zoom = zoom - 10;
-                zoom *= 2;
-                return (int) zoom;
-            }
-
-            // 0 means 100 percent..
-            return 0;
-        }
-
-        /// &lt;summary&gt;
-        /// Calculates the amount of zoom points from a given percentage amount for a &lt;see cref="Scintilla"/&gt; control.
-        /// &lt;/summary&gt;
-        /// &lt;param name="percentageString"&gt;A string to parse into an integer percentage value of the requested zoom points.&lt;/param&gt;
-        /// &lt;returns&gt;System.Int32.&lt;/returns&gt;
-        public static int PointsFromZoomPercentage(string percentageString)
-        {
-            if (double.TryParse(percentageString.Trim().Replace("%", string.Empty).Replace(",", "."), 
-                NumberStyles.Any,
-                CultureInfo.InvariantCulture, out var percentage))
-            {
-                return PointsFromZoomPercentage((int) percentage);
-            }
-
-            return 100;
+            var file = File.OpenText(@"c:\test.txt");
+            int i = 0;
         }
     }
-
 }</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

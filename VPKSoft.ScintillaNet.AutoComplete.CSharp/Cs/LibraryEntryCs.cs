@@ -307,7 +307,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                 {
                     for (int i = 0; i < Fields.Count; i++)
                     {
-                        result &= Fields[i].Equals(other.Fields[i]);
+                        result &= Fields[i].Equals(other.Fields?[i]);
                         if (!result)
                         {
                             return false;
@@ -326,7 +326,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                 {
                     for (int i = 0; i < Properties.Count; i++)
                     {
-                        result &= Properties[i].Equals(other.Properties[i]);
+                        result &= Properties[i].Equals(other.Properties?[i]);
                         if (!result)
                         {
                             return false;
@@ -345,7 +345,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                 {
                     for (int i = 0; i < Methods.Count; i++)
                     {
-                        result &= Methods[i].Equals(other.Methods[i]);
+                        result &= Methods[i].Equals(other.Methods?[i]);
                         if (!result)
                         {
                             return false;

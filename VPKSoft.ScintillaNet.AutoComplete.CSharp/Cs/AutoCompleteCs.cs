@@ -183,7 +183,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// Gets or set a value indicating whether to search the sub-directories of the <see cref="AssemblySearchPath"/>.
         /// </summary>
         /// <value>The value indicating whether to search the sub-directories of the <see cref="AssemblySearchPath"/>.</value>
-        public bool AssemblySearchSubDirectories { get; set; } = true;
+        public bool AssemblySearchSubDirectories { get; set; }
 
         // a field for the LangKeywords property..
         private List<string> langKeywords;
@@ -792,7 +792,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                                 if (assembly.GetName().Name == assemblyName)
                                 {
                                     assemblyFiles.RemoveAt(j);
-                                    continue;
                                 }
                             }
                             catch
@@ -950,7 +949,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             foreach (var assembly in assemblies)
             {
                 string location = assembly.Location;
-                if (!string.IsNullOrWhiteSpace(location) && // TODO::Document this condition...
+                if (!string.IsNullOrWhiteSpace(location) &&
                     (asStatic && StaticLibraryMemberList.All(f => f.FileName != location) ||
                      !asStatic &&
                      InstanceLibraryMemberList.All(f => f.FileName != location)) &&

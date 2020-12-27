@@ -49,7 +49,7 @@ namespace AutoCompleteTestApplication
             sctTest.CallTipSetForeHlt(Color.FromArgb(86, 156, 214));
         }
 
-        private AutoCompleteCs AutoCompleteCs { get; set; }
+        private AutoCompleteCs AutoCompleteCs { get; }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {

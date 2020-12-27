@@ -75,11 +75,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                             arrayTypeString += ",";
                         }
                         arrayTypeString += "]";
-
-                        if (arrayType != null && arrayType.IsArray)
-                        {
-                            rank = arrayType.GetArrayRank();
-                        }
                     }
 
                     return arrayTypeString;
