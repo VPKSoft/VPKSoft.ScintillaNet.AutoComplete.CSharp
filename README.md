@@ -11,6 +11,6 @@ An auto-complete (might seem intelligent 🙄) library for the Scintilla control
 * [Reflection](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/reflection)
 
 ### Screenshots
-![image](https://user-images.githubusercontent.com/40712699/103133549-c699f180-46b3-11eb-8238-d60b24ea8f0e.png)
+![image](https://user-images.githubusercontent.com/40712699/103171871-229d7b00-4858-11eb-9015-fef8eb1c78c5.png)
 
-![image](https://user-images.githubusercontent.com/40712699/103133587-f517cc80-46b3-11eb-961e-26749d847a78.png)
+![image](https://user-images.githubusercontent.com/40712699/103171879-27622f00-4858-11eb-974b-f75b636fbc81.png)
