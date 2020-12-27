@@ -11,6 +11,12 @@ I wrote this to ease up the C# script writing with the Scintilla control for the
 
 **NOTE: This is a work in progress and propably will not be ready ever. If a new feature is required, a PR is welcome 🙂**
 
+### Todo
+* Add `this`. -autocompletion
+* Add namespace autocompletion
+* Add auto-completion for method parameters
+* A lot more...
+
 ### Screenshots
 ![image](https://user-images.githubusercontent.com/40712699/103171871-229d7b00-4858-11eb-9015-fef8eb1c78c5.png)
 
