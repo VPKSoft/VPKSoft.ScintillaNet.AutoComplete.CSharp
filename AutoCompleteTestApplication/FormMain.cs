@@ -42,6 +42,7 @@ namespace AutoCompleteTestApplication
             ScintillaLexers.CreateLexer(sctTest, LexerEnumerations.LexerType.Cs);
 
             AutoCompleteCs = new AutoCompleteCs(sctMain);
+
             sctTest.Styles[Style.CallTip].BackColor = Color.FromArgb(66, 66, 66);
             sctTest.Styles[Style.CallTip].ForeColor = Color.FromArgb(255, 255, 255);
             sctTest.Styles[Style.CallTip].Bold = true;

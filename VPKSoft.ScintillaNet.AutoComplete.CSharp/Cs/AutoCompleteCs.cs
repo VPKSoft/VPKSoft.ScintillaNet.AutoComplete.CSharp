@@ -65,13 +65,17 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// </summary>
         /// <param name="scintilla">The scintilla.</param>
         /// <param name="staticAssemblyCache">A value indicating whether to search the auto-complete data from the </param>
-        public AutoCompleteCs(Scintilla scintilla, bool staticAssemblyCache)
+        /// <param name="assemblySearchPath">A search path for assemblies.</param>
+        /// <param name="assemblySearchSubDirectories">A value indicating whether to search the <paramref name="assemblySearchPath"/> sub-directories.</param>
+        public AutoCompleteCs(Scintilla scintilla, bool staticAssemblyCache, string assemblySearchPath, bool assemblySearchSubDirectories)
         {
             base.Scintilla = scintilla;
             base.Scintilla.CharAdded += scintilla_CharAdded;
 
             base.InitializeImages();
             base.RegisterImages();
+            AssemblySearchPath = assemblySearchPath;
+            AssemblySearchSubDirectories = assemblySearchSubDirectories;
 
             UseStaticLibraryMemberCache = staticAssemblyCache;
 
@@ -91,11 +95,11 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             ImageProperty = Properties.Resources.PropertiesAndAttributes;
             ImageField = Properties.Resources.Fields;
 
-            StyleOpeningBracket = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.OpeningBracket, ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
-            StyleClosingBracket = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ClosingBracket, ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
-            StyleArgumentName = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ArgumentName, ForeColor = Color.DarkCyan, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
-            StyleBodyName = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.BodyName, ForeColor = Color.Orchid, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
-            StyleReturnValueType = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ReturnValueType, ForeColor = Color.FromArgb(86, 156, 214), BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleOpeningBracket = new StyleContainer<HighLightStyleCs> {ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleClosingBracket = new StyleContainer<HighLightStyleCs> {ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleArgumentName = new StyleContainer<HighLightStyleCs> {ForeColor = Color.DarkCyan, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleBodyName = new StyleContainer<HighLightStyleCs> {ForeColor = Color.Orchid, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleReturnValueType = new StyleContainer<HighLightStyleCs> {ForeColor = Color.FromArgb(86, 156, 214), BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
 
             CacheLibraries(true);
 
@@ -114,7 +118,28 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// Initializes a new instance of the <see cref="AutoCompleteCs"/> class.
         /// </summary>
         /// <param name="scintilla">The scintilla.</param>
-        public AutoCompleteCs(Scintilla scintilla): this(scintilla, true) { }
+        /// <param name="staticAssemblyCache">A value indicating whether to search the auto-complete data from the </param>
+        /// <param name="assemblySearchPath">A search path for assemblies.</param>
+        public AutoCompleteCs(Scintilla scintilla, bool staticAssemblyCache, string assemblySearchPath) : this(
+            scintilla, staticAssemblyCache, assemblySearchPath, true)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutoCompleteCs"/> class.
+        /// </summary>
+        /// <param name="scintilla">The scintilla.</param>
+        /// <param name="assemblySearchPath">A search path for assemblies.</param>
+        public AutoCompleteCs(Scintilla scintilla, string assemblySearchPath) : this(
+            scintilla, true, assemblySearchPath, true)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutoCompleteCs"/> class.
+        /// </summary>
+        /// <param name="scintilla">The scintilla.</param>
+        public AutoCompleteCs(Scintilla scintilla): this(scintilla, true, null, false) { }
 
         #region PublicProperties
         /// <summary>
@@ -147,6 +172,18 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// <value><c>true</c> whether to use the GAC (P/Invoke) to load the assemblies; otherwise, <c>false</c>.</value>
         // ReSharper disable once InconsistentNaming
         public bool UseGAC { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the search path for assemblies.
+        /// </summary>
+        /// <value>The search path for assemblies.</value>
+        public string AssemblySearchPath { get; set; }
+
+        /// <summary>
+        /// Gets or set a value indicating whether to search the sub-directories of the <see cref="AssemblySearchPath"/>.
+        /// </summary>
+        /// <value>The value indicating whether to search the sub-directories of the <see cref="AssemblySearchPath"/>.</value>
+        public bool AssemblySearchSubDirectories { get; set; } = true;
 
         // a field for the LangKeywords property..
         private List<string> langKeywords;
@@ -673,6 +710,24 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                 }
             }
 
+            var assemblyFiles = new List<string>();
+
+            try
+            {
+                if (AssemblySearchPath != null && Directory.Exists(AssemblySearchPath))
+                {
+                    assemblyFiles.AddRange(Directory.GetFiles(AssemblySearchPath, "*.dll",
+                        AssemblySearchSubDirectories
+                            ? SearchOption.AllDirectories
+                            : SearchOption.TopDirectoryOnly));
+                }
+            }
+            catch
+            {
+                // the file fetch failed..
+            }
+
+
             #if NETFRAMEWORK
             if (UseGAC && !GACDictionaryLoaded)
             {
@@ -727,6 +782,27 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                         .GetAssemblies()
                         .FirstOrDefault(f => f.GetName().Name == assemblyName);
 
+                    if (assembly == null)
+                    {
+                        for (int j = assemblyFiles.Count - 1; j >= 0; j--)
+                        {
+                            try
+                            {
+                                assembly = Assembly.LoadFrom(assemblyFiles[j]);
+                                if (assembly.GetName().Name == assemblyName)
+                                {
+                                    assemblyFiles.RemoveAt(j);
+                                    continue;
+                                }
+                            }
+                            catch
+                            {
+                                FailedAssemblies.Add(assemblyName);
+                                assemblyFiles.RemoveAt(j);
+                            }
+                        }
+                    }
+
                     if (UseGAC && assembly == null)
                     {
                         try
@@ -770,7 +846,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             }
             #endif
         }
-
 
         #region RoslynProperties        
         /// <summary>
@@ -820,6 +895,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         private SourceText SourceText { get; set; }
         
         #endregion
+
         /// <summary>
         /// Creates a <see cref="AdhocWorkspace"/> and project with the updated source code.
         /// </summary>
@@ -1121,15 +1197,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
                 }
             }
 
-            var test = StaticLibraryMemberList[StaticLibraryMemberList.Count - 666];
-
-            foreach (var testMethod in test.Methods)
-            {
-                //MessageBox.Show(testMethod.ToString());
-            }
-
-            //MessageBox.Show(test.ToString());
-
             WordList = new ScintillaKeywordBuilder()
                 .AddKeywordsFrom(StaticLibraryMemberList)
                 .AddKeyWords(langKeywords, LanguageConstructType.Keyword)
@@ -1365,27 +1432,27 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// <summary>
         /// Gets or sets the style for an opening bracket for a call tip.s
         /// </summary>
-        public StyleContainer<HighLightStyleCs> StyleOpeningBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.OpeningBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+        public StyleContainer<HighLightStyleCs> StyleOpeningBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.OpeningBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.OpeningBracket, value); }
 
         /// <summary>
         /// Gets or sets the style for a closing bracket for a call tip.
         /// </summary>
-        public StyleContainer<HighLightStyleCs> StyleClosingBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ClosingBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+        public StyleContainer<HighLightStyleCs> StyleClosingBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ClosingBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ClosingBracket, value); }
 
         /// <summary>
         /// Gets or sets the style for an argument name for a call tip.
         /// </summary>
-        public StyleContainer<HighLightStyleCs> StyleArgumentName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ArgumentName); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+        public StyleContainer<HighLightStyleCs> StyleArgumentName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ArgumentName); set => CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ArgumentName, value); }
 
         /// <summary>
         /// Gets or sets the style for a body name for a call tip.
         /// </summary>
-        public StyleContainer<HighLightStyleCs> StyleBodyName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.BodyName); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+        public StyleContainer<HighLightStyleCs> StyleBodyName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.BodyName); set => CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.BodyName, value); }
 
         /// <summary>
         /// Gets or sets the style for a return value type for a call tip.
         /// </summary>
-        public StyleContainer<HighLightStyleCs> StyleReturnValueType { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ReturnValueType); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+        public StyleContainer<HighLightStyleCs> StyleReturnValueType { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ReturnValueType); set => CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ReturnValueType, value); }
         #endregion
     }
 }

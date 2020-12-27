@@ -197,6 +197,17 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         }
 
         /// <summary>
+        /// Adds a specified style to the collection.
+        /// </summary>
+        /// <param name="type">The type of the style.</param>
+        /// <param name="style">The style to add.</param>
+        public static void AddStyle(T type, StyleContainer<T> style)
+        {
+            style.Type = type;
+            AddStyle(style);
+        }
+
+        /// <summary>
         /// Gets a style for a specified type.
         /// </summary>
         /// <param name="type">The type of the style.</param>
