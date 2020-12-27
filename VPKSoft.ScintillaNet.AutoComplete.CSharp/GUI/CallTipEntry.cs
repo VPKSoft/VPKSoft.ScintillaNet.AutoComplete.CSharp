@@ -182,7 +182,28 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// <param name="font">The font for the style.</param>
         public static void AddStyle(T type, Color foreColor, Color backColor, Font font)
         {
+            Styles.RemoveWhere(f => f.Type.Equals(type));
             Styles.Add(new StyleContainer<T> {Type = type, ForeColor = foreColor, BackColor = backColor, Font = font});
+        }
+
+        /// <summary>
+        /// Adds a specified style to the collection.
+        /// </summary>
+        /// <param name="style">The style to add.</param>
+        public static void AddStyle(StyleContainer<T> style)
+        {
+            Styles.RemoveWhere(f => f.Type.Equals(style.Type));
+            Styles.Add(style);
+        }
+
+        /// <summary>
+        /// Gets a style for a specified type.
+        /// </summary>
+        /// <param name="type">The type of the style.</param>
+        /// <returns>An instance to a <see cref="StyleContainer{T}"/> class.</returns>
+        public static StyleContainer<T> GetStyle(T type)
+        {
+            return Styles.FirstOrDefault(f => f.Type.Equals(type));
         }
 
         /// <summary>
@@ -192,9 +213,24 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// <param name="image">The image for the specified <see cref="LanguageConstructType"/> type.</param>
         public static void AddTypeImage(LanguageConstructType constructType, Image image)
         {
+            TypeImages.RemoveWhere(f => f.Key == constructType);
             TypeImages.Add(new KeyValuePair<LanguageConstructType, Image>(constructType, image));
         }
 
+        /// <summary>
+        /// Gets a type image for a specified <see cref="LanguageConstructType"/> type.
+        /// </summary>
+        /// <param name="constructType">Type of the language construct.</param>
+        /// <returns>An instance to a <see cref="Image"/> class.</returns>
+        public static Image GetTypeImage(LanguageConstructType constructType)
+        {
+            return TypeImages.FirstOrDefault(f => f.Key == constructType).Value;
+        }
+
+        /// <summary>
+        /// Gets the styles.
+        /// </summary>
+        /// <value>The styles.</value>
         private static HashSet<StyleContainer<T>> Styles { get; } = new HashSet<StyleContainer<T>>();
 
         /// <summary>

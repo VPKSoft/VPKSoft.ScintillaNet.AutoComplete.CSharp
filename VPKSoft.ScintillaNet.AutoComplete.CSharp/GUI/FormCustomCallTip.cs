@@ -127,6 +127,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         public void Clear()
         {
             CallTipEntries.Clear();
+            UserTypedString = string.Empty;
             currentCallTipIndex = 0;
             ItemCount = 0;
         }
@@ -136,12 +137,9 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
         /// </summary>
         public void First()
         {
-            if (currentCallTipIndex != 0 && CallTipEntriesFiltered.Count > 0)
-            {
-                SetImage();
-                CurrentCallTipIndex = 0;
-                CurrentItemIndex = 0;
-            }
+            SetImage();
+            CurrentCallTipIndex = 0;
+            CurrentItemIndex = 0;
         }
 
         /// <summary>
@@ -344,6 +342,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
             }
 
             First();
+            InvalidatePanels();
         }
 
         private void formCustomCallTip_SelectionMade(object sender, EventArgs e)

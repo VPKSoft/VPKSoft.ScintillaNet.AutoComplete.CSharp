@@ -28,6 +28,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ScintillaNET;
+using VPKSoft.ScintillaNet.AutoComplete.CSharp.Interfaces;
 
 namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 {
@@ -36,7 +37,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
     /// Implements the <see cref="System.Windows.Forms.Form" />
     /// </summary>
     /// <seealso cref="System.Windows.Forms.Form" />
-    public partial class FormCustomCallTipBase: Form
+    public partial class FormCustomCallTipBase: Form, IAutoCompleteColors
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FormCustomCallTip{T}"/> class.
@@ -324,7 +325,6 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
 
         private void FormCustomCallTipBase_Deactivate(object sender, EventArgs e)
         {
-            UserTypedString = string.Empty;
             Hide();
         }
 
@@ -345,6 +345,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
                 e.SuppressKeyPress = true;
                 Hide();
                 SelectionMade?.Invoke(this, new EventArgs());
+                UserTypedString = string.Empty;
                 return;
             }
 
@@ -387,6 +388,83 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.GUI
                 UserTypedString += e.KeyChar.ToString();
                 FilterChanged?.Invoke(this, new EventArgs());
                 HandleKeyAsChar = false;
+            }
+        }
+        #endregion
+
+        #region IFaceColors
+        /// <summary>
+        /// Gets or sets the call tip color.
+        /// </summary>
+        /// <value>The call tip color.</value>
+        public Color ColorCallTip
+        {
+            get => tlpMain.BackColor;
+            set
+            {
+                tlpMain.BackColor = value;
+                pnItemText.BackColor = value;
+                pnItemType.BackColor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the background color of the up and down arrows.
+        /// </summary>
+        /// <value>The background color of the up and down arrows.</value>
+        public Color ColorBackgroundUpDownArrow
+        {
+            get => pnDownArrow.BackColor;
+            set
+            {
+                pnDownArrow.BackColor = value;
+                pnUpArrow.BackColor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the background color for the type image.
+        /// </summary>
+        /// <value>The background color for the type image.</value>
+        public Color ColorBackgroundTypeImage { get => pnTypeImage.BackColor; set => pnTypeImage.BackColor = value; }
+
+        /// <summary>
+        /// Gets or sets the background color of the "X of Y" text in the call tip.
+        /// </summary>
+        /// <value>The background color of the "X of Y" text in the call tip.</value>
+        public Color ColorBackgroundNumOfNum { get => lbXofY.BackColor; set => lbXofY.BackColor = value; }
+
+        /// <summary>
+        /// Gets or sets the foreground color of the "X of Y" text in the call tip.
+        /// </summary>
+        /// <value>The foreground color of the "X of Y" text in the call tip.</value>
+        public Color ColorForegroundNumOfNum { get => lbXofY.ForeColor; set => lbXofY.ForeColor = value; }
+
+        /// <summary>
+        /// Gets or sets the up left border color of the call tip.
+        /// </summary>
+        /// <value>The up left border color of the call tip.</value>
+        public Color ColorUpLeftBorder
+        {
+            get => pnTopLeft.BackColor;
+            set
+            {
+                pnTopLeft.BackColor = value;
+                pnTopUp.BackColor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the bottom right border color of the call tip.
+        /// </summary>
+        /// <value>The bottom right border color of the call tip.</value>
+        public Color ColorBottomRightBorder
+        {
+            get => pnBottomDown.BackColor;
+            set
+            {
+                pnBottomDown.BackColor = value;
+                pnBottomRight.BackColor = value;
             }
         }
         #endregion

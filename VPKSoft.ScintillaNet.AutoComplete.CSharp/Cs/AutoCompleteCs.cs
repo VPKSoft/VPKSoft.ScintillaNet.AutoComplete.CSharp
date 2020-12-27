@@ -58,7 +58,7 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
     /// <summary>
     /// A class for intelligent code completion for the C# programming language.
     /// </summary>
-    public class AutoCompleteCs: AutoCompleteBase<LibraryEntryCs>, IScintillaAutoComplete<LibraryEntryCs>
+    public class AutoCompleteCs: AutoCompleteBase<LibraryEntryCs>, IScintillaAutoComplete<LibraryEntryCs>, IAutoCompleteColors
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoCompleteCs"/> class.
@@ -86,15 +86,16 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
 
             CallTipStyling = new CallTipStylingCs(scintilla);
 
-            CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.StaticClass, Properties.Resources.StaticClasses);
-            CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Method, Properties.Resources.Methods);
-            CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Property, Properties.Resources.PropertiesAndAttributes);
-            CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Field, Properties.Resources.Fields);
-            CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.OpeningBracket, Color.White, Color.Black, new Font(new FontFamily("Consolas"), 9));
-            CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ClosingBracket, Color.White, Color.Black, new Font(new FontFamily("Consolas"), 9));
-            CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ArgumentName, Color.DarkCyan, Color.Black, new Font(new FontFamily("Consolas"), 9));
-            CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.BodyName, Color.Orchid, Color.Black, new Font(new FontFamily("Consolas"), 9));
-            CallTipEntry<HighLightStyleCs>.AddStyle(HighLightStyleCs.ReturnValueType, Color.FromArgb(86, 156, 214), Color.Black, new Font(new FontFamily("Consolas"), 9));
+            ImageStaticClass = Properties.Resources.StaticClasses;
+            ImageMethod = Properties.Resources.Methods;
+            ImageProperty = Properties.Resources.PropertiesAndAttributes;
+            ImageField = Properties.Resources.Fields;
+
+            StyleOpeningBracket = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.OpeningBracket, ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleClosingBracket = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ClosingBracket, ForeColor = Color.White, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleArgumentName = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ArgumentName, ForeColor = Color.DarkCyan, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleBodyName = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.BodyName, ForeColor = Color.Orchid, BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
+            StyleReturnValueType = new StyleContainer<HighLightStyleCs> {Type = HighLightStyleCs.ReturnValueType, ForeColor = Color.FromArgb(86, 156, 214), BackColor = Color.Black, Font = new Font(new FontFamily("Consolas"), 9)};
 
             CacheLibraries(true);
 
@@ -306,6 +307,12 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// <param name="e">The <see cref="CharAddedEventArgs"/> instance containing the event data.</param>
         private async void scintilla_CharAdded(object sender, CharAddedEventArgs e)
         {
+            // don't auto-complete inside strings..
+            if (InString(Scintilla.CurrentPosition))
+            {
+                return;
+            }
+
             if (e.Char == '.')
             {
                 CreateAddhocProject(Scintilla.Text);
@@ -437,6 +444,58 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         private bool isDisposed;
         #endregion
 
+        #region PrivateMethods
+
+        private bool InString(int position)
+        {
+            var text = string.Empty;
+
+            if (Scintilla.InvokeRequired)
+            {
+                Scintilla.Invoke(new MethodInvoker(delegate { text = Scintilla.Text; }));
+            }
+            else
+            {
+                text = Scintilla.Text;
+            }
+
+            var i = 0;
+            var max = Math.Min(position, text.Length);
+            var stringOpen = false;
+
+
+
+            while (i < max)
+            {
+                if (i + 2 < max)
+                {
+                    if (text.Substring(i, 2) == "\\\"")
+                    {
+                        i += 2;
+                        continue;
+                    }
+
+                    if (text.Substring(i, 2) == "\"\"")
+                    {
+                        i += 2;
+                        continue;
+                    }
+                }
+
+                if (i + 1 < max && text.Substring(i, 1) == "\"")
+                {
+                    i++;
+                    stringOpen = !stringOpen;
+                    continue;
+                }
+
+                i++;
+            }
+
+            return stringOpen;
+        }
+        #endregion
+
         #region PublicMethods        
         /// <summary>
         /// Updates the local scope members to the auto-complete list.
@@ -444,24 +503,33 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
         /// <param name="currentPosition">The current position within the <see cref="Scintilla"/> control.</param>
         public async Task AutoCompleteMemberUpdate(int currentPosition)
         {
-            var model = await Document.GetSemanticModelAsync();
-            var syntaxTree = await Document.GetSyntaxTreeAsync();
-            if (syntaxTree != null)
+            try
             {
-                var symbols = (await Recommender.GetRecommendedSymbolsAtPositionAsync(model, currentPosition, Workspace)).ToList();
-                var variables = symbols.Where(f => f.Kind == SymbolKind.Local || f.Kind == SymbolKind.Parameter);
+                var model = await Document.GetSemanticModelAsync();
+                var syntaxTree = await Document.GetSyntaxTreeAsync();
+                if (syntaxTree != null)
+                {
+                    var symbols =
+                        (await Recommender.GetRecommendedSymbolsAtPositionAsync(model, currentPosition, Workspace))
+                        .ToList();
+                    var variables = symbols.Where(f => f.Kind == SymbolKind.Local || f.Kind == SymbolKind.Parameter);
 
-                var properties = symbols.Where(f => f.Kind == SymbolKind.Property);
+                    var properties = symbols.Where(f => f.Kind == SymbolKind.Property);
 
-                var variableNames = variables.Select(f => f.Name).ToList();
-                var propertyNames = properties.Select(f => f.Name).ToList();
+                    var variableNames = variables.Select(f => f.Name).ToList();
+                    var propertyNames = properties.Select(f => f.Name).ToList();
 
-                WordList = ScintillaKeywordBuilder
-                    .WithNew()
-                    .WithWordList(WordList)
-                    .RemoveKeywordsWithType(LanguageConstructType.LocalVariable)
-                    .AddKeyWords(variableNames, LanguageConstructType.LocalVariable)
-                    .AddKeyWords(propertyNames, LanguageConstructType.Property).ToString();
+                    WordList = ScintillaKeywordBuilder
+                        .WithNew()
+                        .WithWordList(WordList)
+                        .RemoveKeywordsWithType(LanguageConstructType.LocalVariable)
+                        .AddKeyWords(variableNames, LanguageConstructType.LocalVariable)
+                        .AddKeyWords(propertyNames, LanguageConstructType.Property).ToString();
+                }
+            }
+            catch
+            {
+                // on a small file this might go wrong..
             }
         }
         
@@ -1086,8 +1154,9 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             {
                 // free managed resources..
                 Scintilla.CharAdded -= scintilla_CharAdded;
-                base.PostponeTimer.Timer += Timer;
-                base.Scintilla.TextChanged += scintilla_TextChanged;
+                base.PostponeTimer.Timer -= Timer;
+                base.Scintilla.TextChanged -= scintilla_TextChanged;
+                CustomCallTip.ItemSelected -= customCallTip_ItemSelected;
                 PostponeTimer?.Dispose();
                 Workspace?.Dispose();
                 ClearRegisteredImages();
@@ -1113,6 +1182,210 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Cs
             // finalizer calls Dispose(false)..
             Dispose(false);
         }
+        #endregion
+
+        #region IFaceColors
+        /// <summary>
+        /// Gets or sets the call tip color.
+        /// </summary>
+        /// <value>The call tip color.</value>
+        public Color ColorCallTip { get => CustomCallTip.ColorCallTip; set => CustomCallTip.ColorCallTip = value; }
+
+
+        /// <summary>
+        /// Gets or sets the background color of the up and down arrows.
+        /// </summary>
+        /// <value>The background color of the up and down arrows.</value>
+        public Color ColorBackgroundUpDownArrow { get => CustomCallTip.ColorBackgroundUpDownArrow; set => CustomCallTip.ColorBackgroundUpDownArrow = value; }
+
+        /// <summary>
+        /// Gets or sets the background color for the type image.
+        /// </summary>
+        /// <value>The background color for the type image.</value>
+        public Color ColorBackgroundTypeImage { get => CustomCallTip.ColorBackgroundTypeImage; set => CustomCallTip.ColorBackgroundTypeImage = value; }
+
+        /// <summary>
+        /// Gets or sets the background color of the "X of Y" text in the call tip.
+        /// </summary>
+        /// <value>The background color of the "X of Y" text in the call tip.</value>
+        public Color ColorBackgroundNumOfNum { get => CustomCallTip.ColorBackgroundNumOfNum; set => CustomCallTip.ColorBackgroundNumOfNum = value; }
+
+        /// <summary>
+        /// Gets or sets the foreground color of the "X of Y" text in the call tip.
+        /// </summary>
+        /// <value>The foreground color of the "X of Y" text in the call tip.</value>
+        public Color ColorForegroundNumOfNum { get => CustomCallTip.ColorForegroundNumOfNum; set => CustomCallTip.ColorForegroundNumOfNum = value; }
+
+        /// <summary>
+        /// Gets or sets the up left border color of the call tip.
+        /// </summary>
+        /// <value>The up left border color of the call tip.</value>
+        public Color ColorUpLeftBorder { get => CustomCallTip.ColorUpLeftBorder; set => CustomCallTip.ColorUpLeftBorder = value; }
+
+        /// <summary>
+        /// Gets or sets the bottom right border color of the call tip.
+        /// </summary>
+        /// <value>The bottom right border color of the call tip.</value>
+        public Color ColorBottomRightBorder { get => CustomCallTip.ColorBottomRightBorder; set => CustomCallTip.ColorBottomRightBorder = value; }
+        #endregion
+
+        #region CallTipImages
+        /// <summary>
+        /// Gets or sets the image to indicate a static class.
+        /// </summary>
+        public Image ImageStaticClass { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.StaticClass); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.StaticClass, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a method.
+        /// </summary>
+        public Image ImageMethod { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Method); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Method, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a property.
+        /// </summary>
+        public Image ImageProperty { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Property); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Property, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a field.
+        /// </summary>
+        public Image ImageField { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Field); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Field, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a class.
+        /// </summary>
+        public Image ImageClass { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Class); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Class, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a keyword.
+        /// </summary>
+        public Image ImageKeyword { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Keyword); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Keyword, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a build-in type.
+        /// </summary>
+        public Image ImageBuildInType { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.BuildInType); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.BuildInType, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a variable.
+        /// </summary>
+        public Image ImageVariable { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Variable); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Variable, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a local variable.
+        /// </summary>
+        public Image ImageLocalVariable { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.LocalVariable); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.LocalVariable, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a struct.
+        /// </summary>
+        public Image ImageStruct { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Struct); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Struct, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a tuple.
+        /// </summary>
+        public Image ImageTuple { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Tuple); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Tuple, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an enumeration.
+        /// </summary>
+        public Image ImageEnum { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Enum); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Enum, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an interface.
+        /// </summary>
+        public Image ImageInterface { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Interface); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Interface, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a constructor.
+        /// </summary>
+        public Image ImageConstructor { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Constructor); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Constructor, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a type parameter.
+        /// </summary>
+        public Image ImageTypeParameter { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.TypeParameter); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.TypeParameter, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a constant.
+        /// </summary>
+        public Image ImageConstant { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Constant); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Constant, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an event.
+        /// </summary>
+        public Image ImageEvent { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Event); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Event, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an operator.
+        /// </summary>
+        public Image ImageOperator { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Operator); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Operator, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a module.
+        /// </summary>
+        public Image ImageModule { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Module); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Module, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an attribute.
+        /// </summary>
+        public Image ImageAttribute { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Attribute); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Attribute, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a value.
+        /// </summary>
+        public Image ImageValue { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Value); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Value, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a reference.
+        /// </summary>
+        public Image ImageReference { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Reference); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Reference, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate an unit.
+        /// </summary>
+        public Image ImageUnit { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Unit); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Unit, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a snippet.
+        /// </summary>
+        public Image ImageSnippet { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Snippet); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Snippet, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a string.
+        /// </summary>
+        public Image ImageString { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.String); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.String, value); }
+
+        /// <summary>
+        /// Gets or sets the image to indicate a character.
+        /// </summary>
+        public Image ImageChar { get => CallTipEntry<HighLightStyleCs>.GetTypeImage(LanguageConstructType.Char); set => CallTipEntry<HighLightStyleCs>.AddTypeImage(LanguageConstructType.Char, value); }
+        #endregion
+
+        #region CallTipFonts
+        /// <summary>
+        /// Gets or sets the style for an opening bracket for a call tip.s
+        /// </summary>
+        public StyleContainer<HighLightStyleCs> StyleOpeningBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.OpeningBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+
+        /// <summary>
+        /// Gets or sets the style for a closing bracket for a call tip.
+        /// </summary>
+        public StyleContainer<HighLightStyleCs> StyleClosingBracket { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ClosingBracket); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+
+        /// <summary>
+        /// Gets or sets the style for an argument name for a call tip.
+        /// </summary>
+        public StyleContainer<HighLightStyleCs> StyleArgumentName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ArgumentName); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+
+        /// <summary>
+        /// Gets or sets the style for a body name for a call tip.
+        /// </summary>
+        public StyleContainer<HighLightStyleCs> StyleBodyName { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.BodyName); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
+
+        /// <summary>
+        /// Gets or sets the style for a return value type for a call tip.
+        /// </summary>
+        public StyleContainer<HighLightStyleCs> StyleReturnValueType { get => CallTipEntry<HighLightStyleCs>.GetStyle(HighLightStyleCs.ReturnValueType); set => CallTipEntry<HighLightStyleCs>.AddStyle(value); }
         #endregion
     }
 }
