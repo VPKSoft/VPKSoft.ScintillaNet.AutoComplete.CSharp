@@ -60,7 +60,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <PackageReference Include="unofficial.ScintillaNET" Version="3.7.0" />
+    <PackageReference Include="unofficial.ScintillaNET" Version="3.8.0" />
     <ProjectReference Include="..\VPKSoft.ScintillaNet.AutoComplete.CSharp\VPKSoft.ScintillaNet.AutoComplete.CSharp.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
