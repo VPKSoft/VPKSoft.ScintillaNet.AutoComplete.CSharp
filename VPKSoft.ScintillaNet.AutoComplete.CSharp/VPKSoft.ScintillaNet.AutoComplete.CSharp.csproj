@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net47</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net47;net5.0-windows</TargetFrameworks>
     <AssemblyTitle>VPKSoft.ScintillaNETAutoComplete</AssemblyTitle>
     <Product>VPKSoft</Product>
     <Copyright>Copyright © VPKSoft 2020</Copyright>
@@ -20,7 +20,9 @@
     <AssemblyName>VPKSoft.ScintillaNet.AutoComplete.CSharp</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -28,17 +30,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net47|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="GUI\FormCustomCallTip" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.8.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
-    <PackageReference Include="unofficial.ScintillaNET" Version="3.8.0" />
-    <PackageReference Include="VPKSoft.ScintillaLexers.SUO" Version="1.1.4" />
+    <PackageReference Include="unofficial.ScintillaNET" Version="3.8.1" />
+    <PackageReference Include="VPKSoft.ScintillaLexers.SUO" Version="1.1.5" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
     <Reference Include="System.Windows.Forms" />
