@@ -3,7 +3,7 @@
     <TargetFrameworks>netcoreapp3.1;net47;net5.0-windows</TargetFrameworks>
     <AssemblyTitle>VPKSoft.ScintillaNETAutoComplete</AssemblyTitle>
     <Product>VPKSoft</Product>
-    <Copyright>Copyright © VPKSoft 2020</Copyright>
+    <Copyright>Copyright © VPKSoft 2021</Copyright>
     <LangVersion>8</LangVersion>
     <DocumentationFile>bin\$(Configuration)\VPKSoft.ScintillaNETAutoComplete.xml</DocumentationFile>
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -20,9 +20,10 @@
     <AssemblyName>VPKSoft.ScintillaNet.AutoComplete.CSharp</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>

@@ -26,6 +26,7 @@ SOFTWARE.
 
 using System;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Utility
 {
@@ -175,9 +176,14 @@ namespace VPKSoft.ScintillaNet.AutoComplete.CSharp.Utility
             {
                 // free managed resources
                 disposed = true;
-                if (!TimerThread.Join(3000))
+
+                for (int i = 0; i < 3000; i += 100)
                 {
-                    TimerThread.Abort();
+                    Application.DoEvents();
+                    if (TimerThread.Join(100))
+                    {
+                        break;
+                    }
                 }
             }
 
