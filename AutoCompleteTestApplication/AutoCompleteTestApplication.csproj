@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>AutoCompleteTestApplication</AssemblyTitle>
     <Product>AutoCompleteTestApplication</Product>
@@ -15,6 +15,7 @@
     <PackageReleaseNotes>See: https://github.com/VPKSoft/VPKSoft.ScintillaNet.AutoComplete.CSharp</PackageReleaseNotes>
     <PackageIcon>class_icon.png</PackageIcon>
     <Description>A test application for the VPKSoft.ScintillaNet.AutoComplete.CSharp library.</Description>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -26,16 +27,7 @@
     <None Remove="class_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="FormMain.cs" />
     <Compile Update="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
@@ -60,7 +52,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <PackageReference Include="unofficial.ScintillaNET" Version="3.8.1" />
+    <PackageReference Include="unofficial.ScintillaNET" Version="3.8.7" />
     <ProjectReference Include="..\VPKSoft.ScintillaNet.AutoComplete.CSharp\VPKSoft.ScintillaNet.AutoComplete.CSharp.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
